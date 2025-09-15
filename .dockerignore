@@ -1,0 +1,5 @@
+*wpress
+results/*
+wpress-extractor
+go.mod
+go.sum

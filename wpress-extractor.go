@@ -15,6 +15,7 @@ func main() {
 
   if ( len(os.Args) < 2 ) {
     fmt.Println("Please provide the name/path of .wpress file as the first argument");
+    return;
   }
 
   pathToFile := os.Args[1]
