@@ -9,7 +9,7 @@ COPY inc/reader.go /go/src/app/inc
 RUN go build -o wpress-extractor
 
 # Stage 2: Slim Image
-FROM alpine:latest
+FROM gcr.io/distroless/static-debian12
 WORKDIR /app
 COPY --from=builder /go/src/app/wpress-extractor .
 ENTRYPOINT ["./wpress-extractor"]
