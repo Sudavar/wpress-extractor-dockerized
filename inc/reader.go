@@ -91,7 +91,7 @@ func (r Reader) Extract(outputPath string) (int, error) {
 		h := &Header{}
 
 		// check if block equals EOF sequence
-		if bytes.Compare(block, h.GetEOFBlock()) == 0 {
+		if bytes.Equal(block, h.GetEOFBlock()) {
 			// EOF reached, stop the loop
 			break
 		}
@@ -188,7 +188,7 @@ func (r Reader) GetFilesCount() (int, error) {
 		h := &Header{}
 
 		// check if block equals EOF sequence
-		if bytes.Compare(block, h.GetEOFBlock()) == 0 {
+		if bytes.Equal(block, h.GetEOFBlock()) {
 			// EOF reached, stop the loop
 			break
 		}
