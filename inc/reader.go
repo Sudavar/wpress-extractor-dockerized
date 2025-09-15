@@ -30,12 +30,7 @@ import (
 	"fmt"
 	"os"
 	"path"
-	"runtime"
-	"strings"
 )
-
-const PATH_SEPARATOR_WIN = '\\'
-const PATH_SEPARATOR_UNIX = '/'
 
 // Reader structure
 type Reader struct {
@@ -85,9 +80,7 @@ func (r Reader) Extract() (int, error) {
 	r.File.Seek(0, 0)
 
 	// loop until end of file was reached
-	iteration := 0;
 	for {
-		iteration++;
 		// read header block
 		block, err := r.GetHeaderBlock()
 		if err != nil {
@@ -107,11 +100,6 @@ func (r Reader) Extract() (int, error) {
 		h.PopulateFromBytes(block)
 
 		pathToFile := path.Clean("." + string(os.PathSeparator) + string(bytes.Trim(h.Prefix, "\x00")) + string(os.PathSeparator) + string(bytes.Trim(h.Name, "\x00")))
-		if runtime.GOOS == "windows" {
-		    sep := fmt.Sprintf("%c", PATH_SEPARATOR_UNIX)
-		    pathToFile = strings.Replace(pathToFile,"\\",sep,-1)
-		    fmt.Println(pathToFile)
-		}
 
 		err = os.MkdirAll(path.Dir(pathToFile), 0777)
 		if err != nil {
@@ -120,9 +108,6 @@ func (r Reader) Extract() (int, error) {
 		}
 
 		// try to open the file
-		
-
-
 		file, err := os.Create(pathToFile)
 		if err != nil {
 			return r.NumberOfFiles, err
