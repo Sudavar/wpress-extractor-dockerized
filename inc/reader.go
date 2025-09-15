@@ -75,7 +75,7 @@ func (r Reader) ExtractFile(filename string, path string) ([]byte, error) {
 }
 
 // Extract all files from archive
-func (r Reader) Extract() (int, error) {
+func (r Reader) Extract(outputPath string) (int, error) {
 	// put pointer at the beginning of the file
 	r.File.Seek(0, 0)
 
