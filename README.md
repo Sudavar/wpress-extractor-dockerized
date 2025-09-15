@@ -7,18 +7,24 @@ First just build the image:
 docker build -t wpress-extractor .
 ```
 
-Then run the container, passing the desired .wpress file as an argument:
+Then run the container with the following in mind:
+- Pass the desired .wpress file as an argument to `--input`
+- In order for the created files to be accessible, we need to run the container as our user
+- By default output will be written to `/tmp/extractions`, you can override it with the `--output <directory>` argument but make sure it's also mounted inside the container
 ```bash
 wpress_file="small-test.wpress"
-docker run -v $(pwd)/${wpress_file}:/tmp/${wpress_file} -v /tmp/extractions:/tmp/extractions wpress-extractor:latest /tmp/${wpress_file}
+docker run \
+  --user $(id -u):$(id -g) \
+  -v $(pwd)/${wpress_file}:/tmp/${wpress_file} \
+  -v $(pwd)/extractions:/tmp/extractions \
+  wpress-extractor \
+  --input /tmp/${wpress_file}
 ```
 
-or utilize our wrapper script:
+For ease of use, you can also utilize our wrapper script
 ```bash
-./extract.sh small-test.wpress
+./wrapper-extract.sh small-test.wpress
 ```
 
 ### Credits and Disclaimer
-The extractor source code: [https://github.com/yani-/wpress](https://github.com/yani-/wpress).
-
-The All-in-one-Wp-Migration plugin: [https://wordpress.org/plugins/all-in-one-wp-migration/](https://wordpress.org/plugins/all-in-one-wp-migration/).
+The extractor source code was cloned from [https://github.com/yani-/wpress](https://github.com/yani-/wpress), directly in the repository in order to change the extract() function to accept an output directory argument. It's been 10 years since the original project was last updated (won't miss any upstream updates) and I am not very familiar with GO to fork the go package.
