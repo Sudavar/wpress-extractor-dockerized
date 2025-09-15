@@ -99,7 +99,7 @@ func (r Reader) Extract() (int, error) {
 		// populate header from our block bytes
 		h.PopulateFromBytes(block)
 
-		pathToFile := path.Clean("." + string(os.PathSeparator) + string(bytes.Trim(h.Prefix, "\x00")) + string(os.PathSeparator) + string(bytes.Trim(h.Name, "\x00")))
+		pathToFile := path.Clean(string(outputPath) + "/" + string(os.PathSeparator) + string(bytes.Trim(h.Prefix, "\x00")) + string(os.PathSeparator) + string(bytes.Trim(h.Name, "\x00")))
 
 		err = os.MkdirAll(path.Dir(pathToFile), 0777)
 		if err != nil {
