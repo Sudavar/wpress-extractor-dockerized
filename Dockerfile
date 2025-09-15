@@ -10,6 +10,7 @@ RUN go build -o wpress-extractor
 
 # Stage 2: Slim Image
 FROM gcr.io/distroless/static-debian12
+LABEL maintainer="yury@codescar.eu"
 WORKDIR /app
 COPY --from=builder /go/src/app/wpress-extractor .
 ENTRYPOINT ["./wpress-extractor"]
