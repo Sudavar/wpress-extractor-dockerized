@@ -1,5 +1,5 @@
 # WPress-Extractor Dockerized
-A simple docker image that allows you to extract .wpress files created by the awesome All-in-one-Wp-Migration Wordpress plugin
+A simple docker image that allows you to extract .wpress files created by the All-in-one-Wp-Migration Wordpress plugin
 
 ## Dockerized Execution
 First just build the image:
