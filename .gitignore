@@ -1,5 +1,6 @@
 *wpress
 results/*
+extractions/*
 wpress-extractor
 go.mod
 go.sum
