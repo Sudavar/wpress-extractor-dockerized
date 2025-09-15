@@ -10,7 +10,7 @@ docker build -t wpress-extractor .
 Then run the container with the following in mind:
 - Pass the desired .wpress file as an argument to `--input`
 - In order for the created files to be accessible, we need to run the container as our user
-- By default output will be written to `/tmp/extractions`, you can override it with the `--output <directory>` argument but make sure it's also mounted inside the container
+- By default output will be written to `/tmp/extractions`, you can easily mount the folder of your choice to that location inside the container like `$(pwd)/extractions`
 ```bash
 wpress_file="small-test.wpress"
 docker run \
