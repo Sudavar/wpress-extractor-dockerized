@@ -13,4 +13,4 @@ archive_full_path=$(readlink -f "${1}")
 extraction_path=$(pwd)"/extractions"
 mkdir -p ${extraction_path}
 
-docker run --user $(id -u):$(id -g) -v ${archive_full_path}:/tmp/${archive} -v ${extraction_path}:${extraction_path} wpress-extractor --input /tmp/${archive} --output ${extraction_path}
+docker run --rm --user $(id -u):$(id -g) -v ${archive_full_path}:/tmp/${archive} -v ${extraction_path}:${extraction_path} wpress-extractor --input /tmp/${archive} --output ${extraction_path}

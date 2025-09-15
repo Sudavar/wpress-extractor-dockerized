@@ -12,8 +12,9 @@ Then run the container with the following in mind:
 - In order for the created files to be accessible, we need to run the container as our user
 - By default output will be written to `/tmp/extractions`, you can easily mount the folder of your choice to that location inside the container like `$(pwd)/extractions`
 ```bash
-wpress_file="small-test.wpress"
+wpress_file="archive-test.wpress"
 docker run \
+  --rm \
   --user $(id -u):$(id -g) \
   -v $(pwd)/${wpress_file}:/tmp/${wpress_file} \
   -v $(pwd)/extractions:/tmp/extractions \
@@ -23,7 +24,7 @@ docker run \
 
 For ease of use, you can also utilize our wrapper script
 ```bash
-./wrapper-extract.sh small-test.wpress
+./wrapper-extract.sh archive-test.wpress
 ```
 
 ### Credits and Disclaimer
