@@ -8,21 +8,45 @@ import (
 	wpress "wpress-extractor/inc"
 )
 
+func usage(message string) {
+  if message != "" {
+    fmt.Println(message);
+  }
+  fmt.Println("Usage: wpress-extractor --input <path/to/wpress/file> --output <path/to/output/directory>");
+}
+
 func main() {
-
-  // Initialize outputPath variable
-  outputPath := "/tmp/extractions";
-
   if ( len(os.Args) < 2 ) {
-    fmt.Println("Please provide the name/path of .wpress file as the first argument");
+    fmt.Println("Show help. Please provide the name/path of wpress file as an argument.");
     return;
   }
 
-  pathToFile := os.Args[1]
+  pathToFile := "";
+  outputPath := "/tmp/extractions";
+
+  for i := 0; i < len(os.Args)-1; i++ {
+    switch os.Args[i] {
+    case "--input":
+      pathToFile = os.Args[i+1];
+    case "--output":
+      outputPath = os.Args[i+1];
+    }
+  }
+
+  if pathToFile == "" {
+    usage("Please provide the name/path of wpress file as an argument.");
+    return;
+  }
+
+  if outputPath == "" {
+    usage("Please provide the output path as an argument.");
+    return;
+  }
+
   /* Check if file exists */
   _, file_exists_err := os.Stat(pathToFile);
   if os.IsNotExist(file_exists_err) {
-    fmt.Println("File does not exist");
+    fmt.Printf("Provided archive %s does not exist.", pathToFile);
     return;
   }
 
@@ -39,7 +63,6 @@ func main() {
     fmt.Println("Error = ");
     fmt.Println(extract_err);
   } else {
-    fmt.Printf("All done! The files are extracted under: %s\n", outputPath);
+    fmt.Printf("All done!\nThe files are extracted under: %s\n", outputPath);
   }
-
 }
