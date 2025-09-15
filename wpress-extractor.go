@@ -5,15 +5,13 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/yani-/wpress"
+	wpress "wpress-extractor/inc"
 )
 
 func main() {
 
-  // Initialize outputPath variable with results as default value
-  outputPath := "./results"
-
+  // Initialize outputPath variable
+  outputPath := "/tmp/extractions";
 
   if ( len(os.Args) < 2 ) {
     fmt.Println("Please provide the name/path of .wpress file as the first argument");
@@ -27,14 +25,13 @@ func main() {
     return;
   }
 
-  // Get just the base file name
-	fileName := filepath.Base(pathToFile)
-	// Trim the extension (after the last dot)
-	name := strings.TrimSuffix(fileName, filepath.Ext(fileName))
-  outputPath = outputPath + "/" + name
+  // Get just the base file name and trim the extension (after the last dot)
+	fileName := filepath.Base(pathToFile);
+	name := strings.TrimSuffix(fileName, filepath.Ext(fileName));
+  outputPath = outputPath + "/" + name;
 
   fmt.Printf("Attempting to extract %s\n", pathToFile);
-  archiver, _ := wpress.NewReader(pathToFile)
+  archiver, _ := wpress.NewReader(pathToFile);
 
   _ , extract_err := archiver.Extract(outputPath);
   if ( extract_err != nil ) {

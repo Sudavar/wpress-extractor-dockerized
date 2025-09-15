@@ -101,7 +101,7 @@ func (r Reader) Extract(outputPath string) (int, error) {
 
 		pathToFile := path.Clean(string(outputPath) + "/" + string(os.PathSeparator) + string(bytes.Trim(h.Prefix, "\x00")) + string(os.PathSeparator) + string(bytes.Trim(h.Name, "\x00")))
 
-		err = os.MkdirAll(path.Dir(pathToFile), 0777)
+		err = os.MkdirAll(path.Dir(pathToFile), 0775)
 		if err != nil {
 			fmt.Println(err)
 			return r.NumberOfFiles, err
